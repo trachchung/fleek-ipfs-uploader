@@ -1,3 +1,11 @@
+## Project Description
+
+This is a web application using Nextjs, Fleek SDK + CLI, IPFS Storage.
+
+It allows users to upload images to IPFS via Fleek SDK
+
+It is deployed by using fleek-next CLI https://github.com/fleek-platform/fleek-next
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Create a next js app
