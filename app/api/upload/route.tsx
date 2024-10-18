@@ -17,10 +17,21 @@ export async function POST(req: Request) {
     }
 
     // Logics here
+    const staticProps = await getStaticProps();
+
+    if (!staticProps.props.pat || !staticProps.props.projectId) {
+      return NextResponse.json(
+        { error: "No PAT or Project ID provided" },
+        { status: 400 }
+      );
+    }
+
+    // Logics here
     const accessTokenService = new PersonalAccessTokenService({
-      personalAccessToken: "pat_weeVqAEs952IyFMW5ysm",
-      projectId: "cm2css5d1000tgqiqz5wd9iaa",
+      personalAccessToken: staticProps.props.pat,
+      projectId: staticProps.props.projectId,
     });
+
     const fleekSdk = new FleekSdk({
       accessTokenService: accessTokenService,
     });
