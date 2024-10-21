@@ -9,6 +9,7 @@ export default function HomePage() {
   const [cid, setCid] = useState<string>("");
   const [uploadPreview, setUploadPreview] = useState("");
   const [getImagePreview, setGetImagePreview] = useState("");
+  const [cidUploaded, setCidUploaded] = useState<string>("");
 
   const handleFileChange = (e: any) => {
     const selectedFile = e.target.files[0];
@@ -23,6 +24,7 @@ export default function HomePage() {
 
       const formData = new FormData();
       formData.append("file", file);
+
       const res = await fetch("/api/upload", {
         method: "POST",
         body: formData,
@@ -30,11 +32,16 @@ export default function HomePage() {
 
       if (res.ok) {
         console.log("File uploaded successfully!");
+        const responseJson = await res.json();
+        setCidUploaded(responseJson?.data?.pin?.cid);
       } else {
-        console.log("Error uploading file.");
+        console.log(
+          `Error uploading file: ${res.status} - ${res.statusText}
+          ${await res.json()}`
+        );
       }
     } catch (error) {
-      console.log("Error uploading file.", error);
+      console.log("handleSubmit: Error uploading file.", error);
     }
   };
 
@@ -78,6 +85,19 @@ export default function HomePage() {
         >
           Upload
         </button>
+        {uploadPreview && (
+          <div className="mt-6 relative h-[250px] w-full">
+            <Image
+              src={uploadPreview}
+              alt="Upload Image Preview"
+              className="w-48 h-48 object-cover rounded-lg shadow-md"
+              fill
+            />
+          </div>
+        )}
+        {cidUploaded && (
+          <p className="mt-4 text-green-600">CID Uploaded: {cidUploaded}</p>
+        )}
         <input
           type="text"
           value={cid}
@@ -94,16 +114,6 @@ export default function HomePage() {
         </button>
       </form>
 
-      {uploadPreview && (
-        <div className="mt-6 relative h-[250px] w-full">
-          <Image
-            src={uploadPreview}
-            alt="Upload Image Preview"
-            className="w-48 h-48 object-cover rounded-lg shadow-md"
-            fill
-          />
-        </div>
-      )}
       {getImagePreview && (
         <div className="mt-6 relative h-[250px] w-full">
           <Image

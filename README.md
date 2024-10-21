@@ -1,5 +1,7 @@
 ## Project Description
 
+![Application Screenshot](image.png)
+
 This is a web application using Nextjs, Fleek SDK + CLI, IPFS Storage.
 
 It allows users to upload images to IPFS via Fleek SDK
@@ -7,6 +9,8 @@ It allows users to upload images to IPFS via Fleek SDK
 It is deployed by using fleek-next CLI https://github.com/fleek-platform/fleek-next
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+# FE: Nextjs Web
 
 ## Create a next js app
 
@@ -64,3 +68,37 @@ fleek applications create
 
 ✅ Success! New application Client ID created: client_HTtzw0FEqxXyl2ic4dRU
 ```
+
+## ENV
+
+```bash
+PAT_TOKEN=
+PROJECT_ID=
+BE_SERVER_URL=https://36b3-104-28-254-75.ngrok-free.app
+```
+
+# BE: Nodejs Webserver
+
+### Nodejs setup
+
+### Ngok installation
+
+[ngrok](https://ngrok.com/download)
+
+[ngrok signup](https://dashboard.ngrok.com/signup)
+
+```bash
+# add auth token to ngrok, can be get here:
+# https://dashboard.ngrok.com/get-started/your-authtoken
+ngrok config add-authtoken <your_ngrok_auth_token>
+✅ Authtoken saved to configuration file: ~/.config/ngrok/ngrok.yml
+
+# Start the ngrok server
+ngrok http 8080
+forwarding: <url_to_the_server> (e.g. https://36b3-104-28-254-75.ngrok-free.app) -> http://localhost:8080
+```
+
+### ENV config
+
+PAT_TOKEN=
+PROJECT_ID=
