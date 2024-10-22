@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-const BE_SERVER_URL = "https://e371-104-28-254-75.ngrok-free.app";
+const BE_SERVER_URL = "<ngrok_url_to_the_server>";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export default function HomePage() {
@@ -32,7 +32,6 @@ export default function HomePage() {
       });
 
       if (res.ok) {
-        console.log("4");
         console.log("File uploaded successfully!");
         const responseJson = await res.json();
         setCidUploaded(responseJson?.data?.pin?.cid);

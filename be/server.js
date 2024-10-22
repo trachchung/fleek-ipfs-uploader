@@ -34,16 +34,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-app.get("/", async (req, res) => {
-  try {
-    console.log("Server is running");
-    res.status(200).json({ message: "Server is running" });
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ error: "Failed to get main" });
-  }
-});
-
 // Endpoint to upload file
 app.post("/upload", upload.single("file"), async (req, res) => {
   try {
@@ -61,16 +51,6 @@ app.post("/upload", upload.single("file"), async (req, res) => {
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: "Failed to upload file" });
-  }
-});
-
-app.get("/list-files", async (req, res) => {
-  try {
-    const result = await fleekSdk.storage().list();
-    res.status(200).json(result);
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ error: "Failed to list files" });
   }
 });
 
