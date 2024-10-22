@@ -138,3 +138,16 @@ npm i -g @fleek-platform/next
 
 fleek-next deploy
 ```
+
+```
+# fleek-next deployment sucess
+✅ Success! Next.js app successfully bundled
+✅ Success! λ Function fleek-ipfs-uploader successfully deployed...
+
+url                                                   type
+---------------------------------------------------------------
+https://hissing-kitchen-harsh.functions.on-fleek.app  functions
+
+✅ Success! Your Next.js app has been successfully deployed to Fleek
+> Visit your app at https://hissing-kitchen-harsh.functions.on-fleek.app
+```
