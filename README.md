@@ -12,27 +12,6 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 # FE: Nextjs Web
 
-## Create a next js app
-
-```bash
-npx create-next-app
-✔ What is your project named? … fleek-ipfs-uploader
-✔ Would you like to use TypeScript? … Yes
-✔ Would you like to use ESLint? … Yes
-✔ Would you like to use Tailwind CSS? …  Yes
-✔ Would you like to use `src/` directory? … No
-✔ Would you like to use App Router? (recommended) … Yes
-✔ Would you like to customize the default import alias (@/*)? … Yes
-✔ What import alias would you like configured? … @/*
-```
-
-## Build and run it
-
-```bash
-npm run build
-npm run dev
-```
-
 ## Get the project id
 
 ```bash
@@ -41,9 +20,9 @@ fleek projects create --name fleek-ipfs-uploader
 ✅ Success! The project "fleek-ipfs-uploader" has been successfully created with the project ID "cm2css5d1000tgqiqz5wd9iaa", and you've automatically been switched to it.
 ```
 
-## Create fleek.json
+## fleek.json file
 
-create fleek.json
+create fleek.json and update `FLEEK_PROJECT_ID`
 
 ```bash
 {
@@ -51,37 +30,77 @@ create fleek.json
 }
 ```
 
-## Install Fleek SDK
-
-install sdk https://fleek.xyz/docs/sdk/
+## Get Fleek Personal Access Token (PAT)
 
 ```bash
-npm install @fleek-platform/sdk
+fleek pat create
 ```
 
-## Create Fleek Applications
+## Update FE .env file
 
 ```bash
-fleek applications create
-✔ Enter the name of the new application: … fleek-ipfs-uploader
-✔ Enter one or more domain names to whitelist, separated by commas (e.g. example123.com, site321.com) …
+# In `fe` working directory
+cp .env.local.example .env.local
 
-✅ Success! New application Client ID created: client_HTtzw0FEqxXyl2ic4dRU
-```
-
-## ENV
-
-```bash
+# Update following environment variables in `.env`
+# Fleek personal access token
 PAT_TOKEN=
+# Fleek project id
 PROJECT_ID=
-BE_SERVER_URL=https://36b3-104-28-254-75.ngrok-free.app
+```
+
+## Run the FE on local
+
+```bash
+npm run build
+npm run dev
+```
+
+After running the Nextjs FE on local, the web service runs on [http://localhost:3000](http://localhost:3000)
+
+```
+> fleek-ipfs-uploader@0.1.0 dev
+> next dev
+  ▲ Next.js 14.2.15
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+ ✓ Starting...
+ ✓ Ready in 2.1s
 ```
 
 # BE: Nodejs Webserver
 
-### Nodejs setup
+### Setup
 
-### Ngok installation
+```
+# Prerequisites
+Node 18+
+Fleek Account
+Fleek CLI
+Fleek SDK Installation
+```
+
+```bash
+# Change current directory to `be`
+cd be
+
+# Install dependencies
+npm i
+
+# Create `.env` file
+cp .env.example .env
+# Update following environment variables in `.env`
+# Fleek personal access token
+PAT_TOKEN=
+# Fleek project id
+PROJECT_ID=
+
+# Start the nodejs server (in `be` working directory)
+node server.js
+# Server is running on http://127.0.0.1:8080
+```
+
+### Ngok installation for Nodejs deployment
 
 [ngrok](https://ngrok.com/download)
 
@@ -91,14 +110,31 @@ BE_SERVER_URL=https://36b3-104-28-254-75.ngrok-free.app
 # add auth token to ngrok, can be get here:
 # https://dashboard.ngrok.com/get-started/your-authtoken
 ngrok config add-authtoken <your_ngrok_auth_token>
-✅ Authtoken saved to configuration file: ~/.config/ngrok/ngrok.yml
+#✅ Authtoken saved to configuration file: ~/.config/ngrok/ngrok.yml
 
 # Start the ngrok server
 ngrok http 8080
-forwarding: <url_to_the_server> (e.g. https://36b3-104-28-254-75.ngrok-free.app) -> http://localhost:8080
+
+#forwarding: <ngrok_url_to_the_server> (e.g. https://36b3-104-28-254-75.ngrok-free.app) -> http://localhost:8080
+
 ```
 
-### ENV config
+### Update BACK_END_URL in `fe` folder
 
-PAT_TOKEN=
-PROJECT_ID=
+After starting up the ngrok, it returns a http url like [https://36b3-104-28-254-00.ngrok-free.app](https://36b3-104-28-254-00.ngrok-free.app)
+
+Go to `fe/app/page.tsx` and update `BE_SERVER_URL`
+
+```code
+7 const BE_SERVER_URL = <ngrok_url_to_the_server>;
+```
+
+# Deploy Nextjs Web using Fleek-next CLI
+
+```bash
+# fleek-next CLI Installation
+#global installation
+npm i -g @fleek-platform/next
+
+fleek-next deploy
+```

@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useState } from "react";
 
+const BE_SERVER_URL = "https://e371-104-28-254-75.ngrok-free.app";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export default function HomePage() {
   const [file, setFile] = useState(null);
@@ -24,13 +26,13 @@ export default function HomePage() {
 
       const formData = new FormData();
       formData.append("file", file);
-
-      const res = await fetch("/api/upload", {
+      const res = await fetch(`${BE_SERVER_URL}/upload`, {
         method: "POST",
         body: formData,
       });
 
       if (res.ok) {
+        console.log("4");
         console.log("File uploaded successfully!");
         const responseJson = await res.json();
         setCidUploaded(responseJson?.data?.pin?.cid);
